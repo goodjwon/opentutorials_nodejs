@@ -11,4 +11,5 @@ console.log(_.last(arr));
 console.log(arr[arr.length-1]);
 
 
-
+arr.sort(function(){console.log('Hello Callback');});
+console.log(arr);
