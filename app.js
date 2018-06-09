@@ -1,12 +1,29 @@
 var express = require('express');
 var app = express();
+app.locals.pretty = true;
 app.set('view engine','jade');
 app.set('views', 'views');
 
 app.use(express.static('public'));
 app.get('/template', function(req, res){
-    res.render('temp');
+    res.render('temp', {time:Date(), theTitle:'HelloJade'});
 });
+
+app.get('/topic', function(req, res){
+
+    var topics = ['nodejs is...','javascript is...', 'express is...'];
+    var output = `
+    <ul>
+        <li><a href=topic?id=0>nodejs</a></li>
+        <li><a href=topic?id=1>javascript</a></li>
+        <li><a href=topic?id=2>express</a></li>
+    </ul>
+    ${topics[req.query.id]};
+    `
+
+    res.send(output);
+});
+
 
 app.get('/', function(req, res){
     res.send('Hello home page');;
