@@ -9,19 +9,24 @@ app.get('/template', function(req, res){
     res.render('temp', {time:Date(), theTitle:'HelloJade'});
 });
 
-app.get('/topic', function(req, res){
+app.get('/topic/:id', function(req, res){
 
     var topics = ['nodejs is...','javascript is...', 'express is...'];
     var output = `
     <ul>
-        <li><a href=topic?id=0>nodejs</a></li>
-        <li><a href=topic?id=1>javascript</a></li>
-        <li><a href=topic?id=2>express</a></li>
+        <li><a href=/topic/0>nodejs</a></li>
+        <li><a href=/topic/1>javascript</a></li>
+        <li><a href=/topic/2>express</a></li>
     </ul>
-    ${topics[req.query.id]};
+    ${topics[req.params.id]};
     `
 
     res.send(output);
+});
+
+
+app.get('/topic/:id/:message', function(req, res){
+    res.send(req.params.id + ',' + req.params.message);
 });
 
 
