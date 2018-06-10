@@ -17,8 +17,12 @@
   },
   "homepage": "https://github.com/goodjwon/opentutorials_nodejs#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "jade": "^1.11.0",
     "underscore": "^1.9.1"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.3"
   }
 }

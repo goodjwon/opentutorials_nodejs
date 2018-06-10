@@ -1,5 +1,7 @@
 var express = require('express');
 var app = express();
+var bodyParser = require('body-parser')
+
 app.locals.pretty = true;
 app.set('view engine','jade');
 app.set('views', 'views');
@@ -8,6 +10,23 @@ app.use(express.static('public'));
 app.get('/template', function(req, res){
     res.render('temp', {time:Date(), theTitle:'HelloJade'});
 });
+
+app.use(bodyParser.urlencoded({ extended: false }))
+
+
+app.get('/form', function(req, res){
+    res.render('form')
+
+});
+
+app.post('/form_receiver', function(req, res){
+    var title = req.body.title;
+    var description = req.body.description;
+
+    res.send(title+','+description);
+});
+
+
 
 app.get('/topic/:id', function(req, res){
 
