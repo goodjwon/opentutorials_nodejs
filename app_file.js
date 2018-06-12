@@ -23,12 +23,21 @@ app.post('/topic', function (req, res) {
         }
         res.send('Susses!');
     });
+});
 
+app.get('/topic', function (req, res) {
+    //readdir path, callback
+    fs.readdir('data', function (err, files) {
 
+        if(err){
+            console.log(err);
+            res.status(500).send('Internal Server Error');
+        }
 
+        res.render('view', {topics: files });
+    });
+} );
 
-
-})
 app.listen(3000, function () {
     console.log('Conneted, 3000 port');
-})
+});
