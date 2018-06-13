@@ -9,13 +9,21 @@ app.set('views', './views');
 app.set('view engine', 'jade');
 
 app.get('/topic/new', function (req, res) {
-    res.render('new');
+
+    fs.readdir('data', function (err, files) {
+
+        if (err) {
+            console.log(err);
+            res.status(500).send('Internal Server Error');
+        }
+        res.render('new', { topics: files });
+    });
 
 });
 
-app.get('/topic/:id', function (req, res) {
-    var id = req.params.id;
 
+app.get(['/topic', '/topic/:id'], function (req, res) {
+    //readdir(path, callback)
     fs.readdir('data', function (err, files) {
 
         if(err){
@@ -23,17 +31,26 @@ app.get('/topic/:id', function (req, res) {
             res.status(500).send('Internal Server Error');
         }
 
-        fs.readFile('data/'+id, 'utf-8', function (err, data ) {
+        var id = req.params.id;
 
-            if(err){
-                console.log(err);
-                res.status(500).send('Internal Server Error');
-            }
-            //res.send(data);
-            res.render('view', {topics: files, title:id, descriptiop:data});
-        });
+        if(id){
+
+            fs.readFile('data/'+id, 'utf-8', function (err, data ) {
+
+                if(err){
+                    console.log(err);
+                    res.status(500).send('Internal Server Error');
+                }
+
+                res.render('view', {topics: files, title:id, descriptiop:data});
+
+            });
+        } else{
+            res.render('view', {topics: files, title:'welcome', descriptiop:'Hello JavaScript for server..'});
+        }
     });
-});
+} );
+
 
 app.post('/topic', function (req, res) {
     var title = req.body.title;
@@ -44,22 +61,11 @@ app.post('/topic', function (req, res) {
             console.log(err);
             res.status(500).send('Internal Server Error');
         }
-        res.send('Susses!');
+        res.redirect('/topic/'+title);
     });
 });
 
-app.get('/topic', function (req, res) {
-    //readdir path, callback
-    fs.readdir('data', function (err, files) {
 
-        if(err){
-            console.log(err);
-            res.status(500).send('Internal Server Error');
-        }
-
-        res.render('view', {topics: files });
-    });
-} );
 
 app.listen(3000, function () {
     console.log('Conneted, 3000 port');
