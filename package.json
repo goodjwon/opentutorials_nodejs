@@ -20,6 +20,7 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "jade": "^1.11.0",
+    "orientjs": "^2.2.10",
     "underscore": "^1.9.1"
   },
   "devDependencies": {
