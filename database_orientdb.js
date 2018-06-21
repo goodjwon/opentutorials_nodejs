@@ -9,7 +9,7 @@ var server = OrientDB({
 
 var db = server.use('o2');
 
-db.record.get('#26:0')
+db.record.get('#33:0')
 .then(function (record) {
 
     console.log('Loaded recode:', record);
