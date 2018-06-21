@@ -40,13 +40,21 @@ var param = {
         descript:'Express is framework for web'
     }
 };
- */
+ 
 
 var sql = 'UPDATE topic SET title=:title WHERE @rid=:rid';
 var param = {
     params: {
         rid:'#21:1',
         title: 'express-js'
+    }
+};
+*/
+
+var sql = 'DELETE FROM topic WHERE @rid=:rid';
+var param = {
+    params: {
+        rid:'#21:1',
     }
 };
 
