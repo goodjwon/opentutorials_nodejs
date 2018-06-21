@@ -30,7 +30,7 @@ var param = {
 db.query(sql, param).then(function(results){
     console.log(results);
 });
- */
+
 
 
 var sql = 'INSERT INTO topic (title, descript) VALUES (:title, :descript)';
@@ -40,6 +40,16 @@ var param = {
         descript:'Express is framework for web'
     }
 };
+ */
+
+var sql = 'UPDATE topic SET title=:title WHERE @rid=:rid';
+var param = {
+    params: {
+        rid:'#21:1',
+        title: 'express-js'
+    }
+};
+
 
 db.query(sql, param).then(function(results){console.log(results)});
 
