@@ -21,15 +21,15 @@ app.locals.pretty = true;
 app.set('views', './views_orientdb');
 app.set('view engine', 'jade');
 
-app.get('/topic/new', function (req, res) {
+app.get('/topic/add', function (req, res) {
 
-    fs.readdir('data', function (err, files) {
-
-        if (err) {
-            console.log(err);
+    var sql = 'SELECT FROM topic';
+    db.query(sql).then(function(topics){
+        if (topics.lenght === 0) {
+            console.log('There is no topic recode');
             res.status(500).send('Internal Server Error');
         }
-        res.render('new', { topics: files });
+        res.render('add', { topics: topics });
     });
 
 });
@@ -52,19 +52,23 @@ app.get(['/topic', '/topic/:id'], function (req, res) {
 } );
 
 
-app.post('/topic', function (req, res) {
+app.post('/topic/add', function (req, res) {
     var title = req.body.title;
     var description = req.body.description;
+    var author = req.body.author;        
+    
+    var sql = 'INSERT INTO topic (title, description, author) VALUES(:title, :desc, :author)';
 
-    fs.writeFile('data/'+title, description, function (err) {
-        if(err){
-            console.log(err);
-            res.status(500).send('Internal Server Error');
+    db.query(sql, {
+        params:{
+            title:title,
+            desc:description,
+            author:author
         }
-        res.redirect('/topic/'+title);
-    });
+    }).then(function(results){
+        res.redirect('/topic/'+encodeURIComponent(results[0]['@rid']));
+    })    
 });
-
 
 
 app.listen(3000, function () {
