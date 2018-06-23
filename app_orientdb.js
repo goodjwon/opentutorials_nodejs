@@ -37,11 +37,18 @@ app.get('/topic/new', function (req, res) {
 
 app.get(['/topic', '/topic/:id'], function (req, res) {
     var sql = 'SELECT FROM topic';
-    db.query(sql).then(function(results){
-        res.render('view',{topics:results});
-    });
-
-    
+    db.query(sql).then(function(topics){
+        
+        var id = req.params.id;
+        if(id){
+            var sql = 'SELECT FROM topic WHERE @rid=:rid';
+            db.query(sql, {params:{rid:id}}).then(function(topic){
+                res.render('view', {topics:topics, topic:topic[0]});
+            });
+        }else{
+            res.render('view', {topics:topics});
+        }
+    });    
 } );
 
 

@@ -12,8 +12,12 @@ html
                     - rid = encodeURIComponent(topic['@rid'])
                     a(href='/topic/'+rid)=topic.title
         article
-            h2= title
-            =descriptiop
+            if topic
+                h2= topic.title
+                =topic.description
+            else
+                h2 Welcome
+                | This is server side javascript  tutorial.
         div
             a(href='/topic/new') new
 
