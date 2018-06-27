@@ -27,7 +27,6 @@ app.get('/topic/add', function (req, res) {
     db.query(sql).then(function(topics){
         res.render('add', { topics: topics });
     });
-
 });
 
 
@@ -79,18 +78,28 @@ app.get('/topic/:id/edit', function (req, res) {
 });
 
 
-app.post('/topic/:id/edit', function (req, res) {
+app.post('/topic/:id/add', function (req, res) {
     var id = req.params.id;
-    var sql = 'SELECT FROM topic';
-    db.query(sql).then(function(topics){
-        var sql = 'SELECT FROM topic WHERE @rid=:rid';
-        db.query(sql, {params:{rid:id}}).then(function(topic){
-            res.render('edit', {topics:topics, topic:topic[0]});
-        });
+    var title = req.body.title;
+    var description = req.body.description;
+    var author = req.body.author;
+
+    console.log(id);
+    console.log(title);
+
+
+    var sql = 'UPDATE topic SET title=:t, description=:d, author=:a WHERE @rid=:rid'
+    db.query(sql, {
+        params:{
+            t:title,
+            d:description,
+            a:author,
+            rid:id
+        }
+    }).then(function(topics){
+        res.redirect('/topic/'+encodeURIComponent(id));
     });
 });
-
-
 
 app.listen(3000, function () {
     console.log('Conneted, 3000 port');
