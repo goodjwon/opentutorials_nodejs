@@ -10,7 +10,7 @@ var server = OrientDB({
     localhost: 'localhost',
     port: '2424',
     username: 'root',
-    password: 'eoqkr'
+    password: 'eoqkr1031'
 });
 
 var db = server.use('o2');
@@ -25,10 +25,6 @@ app.get('/topic/add', function (req, res) {
 
     var sql = 'SELECT FROM topic';
     db.query(sql).then(function(topics){
-        if (topics.lenght === 0) {
-            console.log('There is no topic recode');
-            res.status(500).send('Internal Server Error');
-        }
         res.render('add', { topics: topics });
     });
 
@@ -69,6 +65,31 @@ app.post('/topic/add', function (req, res) {
         res.redirect('/topic/'+encodeURIComponent(results[0]['@rid']));
     })    
 });
+
+
+app.get('/topic/:id/edit', function (req, res) {
+    var id = req.params.id;
+    var sql = 'SELECT FROM topic';
+    db.query(sql).then(function(topics){
+        var sql = 'SELECT FROM topic WHERE @rid=:rid';
+        db.query(sql, {params:{rid:id}}).then(function(topic){
+            res.render('edit', {topics:topics, topic:topic[0]});
+        });
+    });
+});
+
+
+app.post('/topic/:id/edit', function (req, res) {
+    var id = req.params.id;
+    var sql = 'SELECT FROM topic';
+    db.query(sql).then(function(topics){
+        var sql = 'SELECT FROM topic WHERE @rid=:rid';
+        db.query(sql, {params:{rid:id}}).then(function(topic){
+            res.render('edit', {topics:topics, topic:topic[0]});
+        });
+    });
+});
+
 
 
 app.listen(3000, function () {
