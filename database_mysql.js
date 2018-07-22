@@ -15,14 +15,24 @@ connection.connect();
 //   console.log('The solution is: ', results[0].solution);
 // });
 
-connection.query('SELECT * FROM topic', function (error, results, fields){
+
+var sql = 'INSERT INTO TOPIC (title, description, author) VALUES (?,?,?)'
+var params = ['Supervisor', 'Watcher', 'jwon'];
+
+connection.query(sql, params, function (error, results, fields){
     if(error){
         console.log(error);
     }else{
-        console.log(results);
+        console.log(results.insertId);
         //console.log(fields);
     }
 });
+
+
+
+
+
+
 
 
 connection.end();
