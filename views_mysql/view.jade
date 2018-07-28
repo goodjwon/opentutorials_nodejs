@@ -12,8 +12,10 @@ html
                     a(href='/topic/'+topic.id)=topic.title
         article
             if topic
-                h2= title
-                =descriptiop
+                h2= topic.title
+                = topic.description
+                br
+                div='by '+topic.author
             else
                 h2 Welcom
                 | this is server side javascript

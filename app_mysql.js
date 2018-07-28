@@ -34,11 +34,22 @@ app.get('/topic/new', function (req, res) {
 
 
 app.get(['/topic', '/topic/:id'], function (req, res) {
-
     var sql = 'SELECT id, title FROM topic';
-
     conn.query(sql, function(err, topics, fields){
-        res.render('view', {topics: topics});
+        var id = req.params.id;
+        if(id){
+            var sql = 'SELECT * FROM topic where id = ?';
+            conn.query(sql, [id] ,function(err, topic, fields){
+                if(err){
+                    console.log(err);
+                    res.status(500).send('Internal Server Errors');
+                }else{
+                    res.render('view', {topics: topics, topic:topic[0]});
+                }
+            });
+        }else{
+            res.render('view', {topics: topics});
+        } 
     })
 });
 
