@@ -19,6 +19,12 @@ html
             else
                 h2 Welcom
                 | this is server side javascript
-        div
-            a(href='/topic/new') new
+        ul
+            li
+                a(href='/topic/add') add 
+            if topic 
+                li 
+                    a(href='/topic/'+topic.id+'/edit') edit
+                li 
+                    a(href='/topic/'+topic.id+'/delete') delete
 
