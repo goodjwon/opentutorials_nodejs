@@ -18,6 +18,8 @@
   "homepage": "https://github.com/goodjwon/opentutorials_nodejs#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "cookie-parse": "^0.4.0",
+    "cookie-parser": "^1.4.3",
     "express": "^4.16.3",
     "jade": "^1.11.0",
     "node-datetime": "^2.0.6",
