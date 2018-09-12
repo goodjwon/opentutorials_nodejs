@@ -80,6 +80,9 @@ local.properties
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 
+#npm modules
+node_modules/**
+
 # Gradle:
 .idea/**/gradle.xml
 .idea/**/libraries
