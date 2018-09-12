@@ -193,6 +193,7 @@ app.post(['/topic/:id/delete'], function (req, res) {
 
 /**
  * 서버 오픈
+ * http://localhost:3000/topic/
  */
 app.listen(3000, function () {
     console.log('Conneted, 3000 port');
